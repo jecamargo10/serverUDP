@@ -130,8 +130,7 @@ public class Server   extends Thread{
 			sock = new DatagramSocket(Integer.parseInt(puerto));
 
 			//buffer to receive incoming data
-			byte[] buffer = new byte[1024];
-			DatagramPacket incoming = new DatagramPacket(buffer, buffer.length);
+		
 
 			//2. Wait for an incoming data
 			//   echo("Server socket created. Waiting for incoming data...");
@@ -140,6 +139,8 @@ public class Server   extends Thread{
 
 			while(true)
 			{
+				byte[] buffer = new byte[1024];
+				DatagramPacket incoming = new DatagramPacket(buffer, buffer.length);
 				sock.receive(incoming);
 				byte [] recibido = new byte[incoming.getLength()];
 				recibido =  incoming.getData();
