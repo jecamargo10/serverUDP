@@ -1,6 +1,7 @@
 package FabulosoServer;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -12,13 +13,16 @@ import clienteudp.backend.ObjetoUDP;
 public class Conexion extends Thread{
 
 private DatagramSocket socket;
-private DatagramPacket incoming;
-
-	
-	public Conexion(DatagramSocket pSock, DatagramPacket pincoming) 
+byte []  llegan;
+private Server superServer;
+String direccion;
+	public Conexion(DatagramSocket pSock, byte[] recibido, Server server, String nombre) 
 	{
 		socket = pSock;
-		incoming= pincoming;
+		llegan= recibido;
+		superServer=server;
+		direccion= nombre;
+		
 		this.start();  
 
 		// TODO Auto-generated constructor stub
@@ -30,21 +34,34 @@ private DatagramPacket incoming;
 		
 		try
 		{
-			ByteArrayInputStream bin = new ByteArrayInputStream(incoming.getData());
 
+			System.out.println("LLEGA ALGO");
+
+
+			ByteArrayInputStream bin = new ByteArrayInputStream(llegan);
 			ObjectInputStream oin = new ObjectInputStream(bin);
 			ObjetoUDP recibido=(ObjetoUDP) oin.readObject();
 
 			oin.close();
 			bin.close();
+			boolean existo = superServer.clientExits(direccion);
+			if(!existo)
+			{
+				superServer.addClient(direccion);
+			}
+			
+			
 			Date actual =new Date();
-			  long diffInMillies = actual.getTime() - recibido.getMarcaTiempo().getTime();
-			    long something= TimeUnit.MILLISECONDS.convert(diffInMillies,TimeUnit.MILLISECONDS);
-			    
-			System.out.println("FROM SERVER: Objeto" + recibido.getNumeroSecuencia());
-			System.out.println(recibido.getNumeroSecuencia()+": " + something +" ms");
-			System.out.println("Direccion Cliente: "+incoming.getAddress().getHostAddress());
+			long diffInMillies = actual.getTime() - recibido.getMarcaTiempo().getTime();
+			long something= TimeUnit.MILLISECONDS.convert(diffInMillies,TimeUnit.MILLISECONDS);
+			String texto = recibido.getNumeroSecuencia()+": " + something +" ms";
+			System.out.println(texto);
+			System.out.println("OBJETO " + recibido.getNumeroSecuencia());
+			superServer.addRecibido(direccion,texto,(int) something);
+
 			recibido = null;
+			new FileOutputStream("SaveObj.sav").close();
+
 
 		}
 		catch (Exception e)
