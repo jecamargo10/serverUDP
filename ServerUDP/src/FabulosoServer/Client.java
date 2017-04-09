@@ -7,7 +7,15 @@ private int objetosRecibidos;
 private int objetosFallidos;
 private int sumaPromedio;
 private int cantidad;
+public int getCantidad() {
+	return cantidad;
+}
+public void setCantidad(int cantidad) {
+	this.cantidad = cantidad;
+}
 private int tiempoPromedio;
+private int tamanioMaximo;
+
 
 public Client (String pipAddres)
 {
@@ -17,16 +25,25 @@ public Client (String pipAddres)
 	tiempoPromedio = 0;
 	objetosFallidos=0;
 	objetosRecibidos=0;
+	tamanioMaximo=0;
 }
-
-public void fallo()
+public void aumentarTamanio(int tamanio)
 {
-	objetosFallidos++;
+	if (tamanioMaximo > tamanio)
+	{
+		
+	}
+	else
+	{
+		tamanioMaximo = tamanio;
+		
+	}
+	
 }
 public void recibido()
 {
 	objetosRecibidos++;
-	}
+}
 
 public void addtime(int time)
 {
@@ -47,7 +64,7 @@ public void setTiempoPromedio(int tiempoPromedio) {
 
 
 public int getObjetosFallidos() {
-	return objetosFallidos;
+	return tamanioMaximo - objetosRecibidos;
 }
 public void setObjetosFallidos(int objetosFallidos) {
 	this.objetosFallidos = objetosFallidos;

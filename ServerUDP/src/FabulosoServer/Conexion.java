@@ -55,7 +55,7 @@ String direccion;
 			System.out.println("OBJETO " + recibido.getNumeroSecuencia());
 			System.out.println("TRAMAIO"+superServer.getarr().size());
 
-			superServer.addRecibido(direccion,texto,(int) something);
+			superServer.addRecibido(direccion,texto,(int) something,recibido.getNumeroSecuencia());
 
 			recibido = null;
 

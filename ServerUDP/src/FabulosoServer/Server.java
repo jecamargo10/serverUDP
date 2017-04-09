@@ -60,10 +60,9 @@ public class Server   extends Thread{
 		}
 
 	}
-	public void addRecibido(String ip,String texto, int something)
+	public void addRecibido(String ip,String texto, int something,int numero)
 	{
 		
-		int numero = Integer.parseInt( texto.split(":")[0]);
 		for (int i = 0; i < info.size(); i++) {
 			Client cliente =info.get(i);
 			if(cliente.getIpAddres().equals(ip))	
@@ -71,6 +70,9 @@ public class Server   extends Thread{
 
 				cliente.recibido();
 				cliente.addtime(something);
+				System.out.println("NUMERO: "+cliente.getObjetosFallidos());
+
+				cliente.aumentarTamanio(numero);
 				try {
 					PrintWriter out;
 					String savestr = ip.replace(".", " ") +".csv";
@@ -88,12 +90,7 @@ public class Server   extends Thread{
 					e.printStackTrace();
 				}
 
-				int recibidos = cliente.getObjetosRecibidos();
-				if (recibidos !=numero )
-				{
-					int fallidos=	numero-recibidos;
-					cliente.setObjetosFallidos(fallidos);
-				}
+			
 				try {
 					PrintWriter out;
 					String savestr = ip.replace(".", " ") + "estadisticas"+".csv";
@@ -102,6 +99,8 @@ public class Server   extends Thread{
 					out = new PrintWriter(savestr);
 			        out.append("Objetos Recibidos,Objetos Fallidos,Tiempo Promedio");
 					out.append('\n');
+					System.out.println("FALLIDOS"+cliente.getObjetosFallidos());
+					System.out.println("cantidad"+cliente.getCantidad());
 			        out.append(cliente.getObjetosRecibidos()+","+cliente.getObjetosFallidos()+","+cliente.getTiempoPromedio()+ "ms");
 					out.close();
 					} catch (FileNotFoundException e) 
