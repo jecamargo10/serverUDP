@@ -70,7 +70,6 @@ public class Server   extends Thread{
 
 				cliente.recibido();
 				cliente.addtime(something);
-				System.out.println("NUMERO: "+cliente.getObjetosFallidos());
 
 				cliente.aumentarTamanio(numero);
 				try {
@@ -93,7 +92,7 @@ public class Server   extends Thread{
 			
 				try {
 					PrintWriter out;
-					String savestr = ip.replace(".", " ") + "estadisticas"+".csv";
+					String savestr = ip.replace(".", " ") + " estadisticas"+".csv";
 					File f = new File(savestr);
 					System.out.println(f.getAbsolutePath());
 					out = new PrintWriter(savestr);
@@ -143,7 +142,7 @@ public class Server   extends Thread{
 				sock.receive(incoming);
 				byte [] recibido = new byte[incoming.getLength()];
 				recibido =  incoming.getData();
-				String nombre = incoming.getAddress().getHostAddress();
+				String nombre = incoming.getAddress().getHostAddress() +" port "+ incoming.getPort();
 				boolean existo = clientExits(nombre);
 				if(!existo)
 				{

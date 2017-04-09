@@ -36,27 +36,17 @@ String direccion;
 		{
 
 			System.out.println("LLEGA ALGO");
-
-
 			ByteArrayInputStream bin = new ByteArrayInputStream(llegan);
 			ObjectInputStream oin = new ObjectInputStream(bin);
 			ObjetoUDP recibido=(ObjetoUDP) oin.readObject();
 
 			oin.close();
 			bin.close();
-	
-
-			
 			Date actual =new Date();
 			long diffInMillies = actual.getTime() - recibido.getMarcaTiempo().getTime();
 			long something= TimeUnit.MILLISECONDS.convert(diffInMillies,TimeUnit.MILLISECONDS);
 			String texto = recibido.getNumeroSecuencia()+": " + something +" ms";
-			System.out.println(texto);
-			System.out.println("OBJETO " + recibido.getNumeroSecuencia());
-			System.out.println("TRAMAIO"+superServer.getarr().size());
-
 			superServer.addRecibido(direccion,texto,(int) something,recibido.getNumeroSecuencia());
-
 			recibido = null;
 
 
