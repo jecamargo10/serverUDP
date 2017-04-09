@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Server   extends Thread{
 
 	private String puerto;
-	private ArrayList<Client> info;
+	private static ArrayList<Client> info;
 
 
 	public Server (String pPuerto)
@@ -21,6 +21,12 @@ public class Server   extends Thread{
 		info = new ArrayList<Client>();
 		this.start();
 
+	}
+	
+	public ArrayList<Client> getarr()
+	{
+		return info;
+		
 	}
 	public boolean clientExits(String pCliente)
 	{
@@ -56,6 +62,7 @@ public class Server   extends Thread{
 	}
 	public void addRecibido(String ip,String texto, int something)
 	{
+		
 		int numero = Integer.parseInt( texto.split(":")[0]);
 		for (int i = 0; i < info.size(); i++) {
 			Client cliente =info.get(i);
@@ -137,7 +144,12 @@ public class Server   extends Thread{
 				byte [] recibido = new byte[incoming.getLength()];
 				recibido =  incoming.getData();
 				String nombre = incoming.getAddress().getHostAddress();
-				System.out.println(recibido);
+				boolean existo = clientExits(nombre);
+				if(!existo)
+				{
+					addClient(nombre);
+				}
+				
 				Conexion papitas = new Conexion(sock,recibido,this,nombre);
 
 			}

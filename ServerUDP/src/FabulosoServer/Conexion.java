@@ -44,12 +44,8 @@ String direccion;
 
 			oin.close();
 			bin.close();
-			boolean existo = superServer.clientExits(direccion);
-			if(!existo)
-			{
-				superServer.addClient(direccion);
-			}
-			
+	
+
 			
 			Date actual =new Date();
 			long diffInMillies = actual.getTime() - recibido.getMarcaTiempo().getTime();
@@ -57,6 +53,8 @@ String direccion;
 			String texto = recibido.getNumeroSecuencia()+": " + something +" ms";
 			System.out.println(texto);
 			System.out.println("OBJETO " + recibido.getNumeroSecuencia());
+			System.out.println("TRAMAIO"+superServer.getarr().size());
+
 			superServer.addRecibido(direccion,texto,(int) something);
 
 			recibido = null;
