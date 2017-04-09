@@ -60,7 +60,6 @@ String direccion;
 			superServer.addRecibido(direccion,texto,(int) something);
 
 			recibido = null;
-			new FileOutputStream("SaveObj.sav").close();
 
 
 		}
