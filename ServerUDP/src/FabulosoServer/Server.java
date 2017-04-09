@@ -81,11 +81,6 @@ public class Server   extends Thread{
 					e.printStackTrace();
 				}
 
-				
-		
-
-
-
 				int recibidos = cliente.getObjetosRecibidos();
 				if (recibidos !=numero )
 				{
