@@ -46,7 +46,7 @@ String direccion;
 			long diffInMillies = actual.getTime() - recibido.getMarcaTiempo().getTime();
 			long something= TimeUnit.MILLISECONDS.convert(diffInMillies,TimeUnit.MILLISECONDS);
 			String texto = recibido.getNumeroSecuencia()+": " + something +" ms";
-			superServer.addRecibido(direccion,texto,(int) something,recibido.getNumeroSecuencia());
+			superServer.addRecibido(direccion,texto,(int) something,recibido.getNumeroTotal());
 			recibido = null;
 
 

@@ -6,7 +6,9 @@ private String ipAddres;
 private int objetosRecibidos;
 private int objetosFallidos;
 private int sumaPromedio;
+private int tamanioMaximo;
 private int cantidad;
+
 public int getCantidad() {
 	return cantidad;
 }
@@ -14,7 +16,7 @@ public void setCantidad(int cantidad) {
 	this.cantidad = cantidad;
 }
 private int tiempoPromedio;
-private int tamanioMaximo;
+
 
 
 public Client (String pipAddres)
@@ -36,10 +38,10 @@ public void aumentarTamanio(int tamanio)
 	else
 	{
 		tamanioMaximo = tamanio;
-		
 	}
 	
 }
+
 public void recibido()
 {
 	objetosRecibidos++;
