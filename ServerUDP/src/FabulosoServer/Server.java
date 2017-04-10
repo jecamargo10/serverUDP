@@ -50,7 +50,6 @@ public class Server   extends Thread{
 			PrintWriter out;
 			String savestr = ip.replace(".", " ") +".csv";
 			File f = new File(savestr);
-			System.out.println(f.getAbsolutePath());
 			out = new PrintWriter(savestr);	    out.append("Id,Tiempo");
 			out.append('\n');
 			out.close();
@@ -76,8 +75,6 @@ public class Server   extends Thread{
 					PrintWriter out;
 					String savestr = ip.replace(".", " ") +".csv";
 					File f = new File(savestr);
-					System.out.println("ESCRIBO");
-
 					out = new PrintWriter(new FileOutputStream(new File(savestr), true));
 					out.append(texto.split(":")[0] + ","+ texto.split(":")[1]);
 					out.append('\n');
@@ -94,12 +91,9 @@ public class Server   extends Thread{
 					PrintWriter out;
 					String savestr = ip.replace(".", " ") + " estadisticas"+".csv";
 					File f = new File(savestr);
-					System.out.println(f.getAbsolutePath());
 					out = new PrintWriter(savestr);
 			        out.append("Objetos Recibidos,Objetos Fallidos,Tiempo Promedio");
 					out.append('\n');
-					System.out.println("FALLIDOS"+cliente.getObjetosFallidos());
-					System.out.println("cantidad"+cliente.getCantidad());
 			        out.append(cliente.getObjetosRecibidos()+","+cliente.getObjetosFallidos()+","+cliente.getTiempoPromedio()+ "ms");
 					out.close();
 					} catch (FileNotFoundException e) 
